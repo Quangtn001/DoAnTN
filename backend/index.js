@@ -4,20 +4,25 @@ const app = express();
 const dotenv = require("dotenv").config();
 const { notFound, errorHandler } = require("./middlewares/errorHandller.js");
 const authRoutes = require("./routes/authRoutes");
+const productRoutes = require("./routes/productRoutes");
+
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
+const morgan = require("morgan");
 
 const PORT = process.env.PORT || 5000;
 
 // connecDB
 dbConnect();
 
+app.use(morgan("dev"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 // routes
 app.use("/api/user", authRoutes);
+app.use("/api/product", productRoutes);
 
 // middlewares
 app.use(notFound);
