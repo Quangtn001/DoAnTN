@@ -6,6 +6,7 @@ const { notFound, errorHandler } = require("./middlewares/errorHandller.js");
 const authRoutes = require("./routes/authRoutes");
 const productRoutes = require("./routes/productRoutes");
 const categoryRoutes = require("./routes/prodcategoryRoutes");
+const couponRoutes = require("./routes/couponRoutes");
 
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
@@ -25,6 +26,7 @@ app.use(cookieParser());
 app.use("/api/user", authRoutes);
 app.use("/api/product", productRoutes);
 app.use("/api/category", categoryRoutes);
+app.use("/api/coupon", couponRoutes);
 
 // middlewares
 app.use(notFound);
