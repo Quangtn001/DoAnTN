@@ -5,6 +5,7 @@ const dotenv = require("dotenv").config();
 const { notFound, errorHandler } = require("./middlewares/errorHandller.js");
 const authRoutes = require("./routes/authRoutes");
 const productRoutes = require("./routes/productRoutes");
+const categoryRoutes = require("./routes/prodcategoryRoutes");
 
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
@@ -23,6 +24,7 @@ app.use(cookieParser());
 // routes
 app.use("/api/user", authRoutes);
 app.use("/api/product", productRoutes);
+app.use("/api/category", categoryRoutes);
 
 // middlewares
 app.use(notFound);
