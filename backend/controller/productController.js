@@ -3,6 +3,8 @@ const asyncHandler = require("express-async-handler");
 const slugify = require("slugify");
 const User = require("../models/userModel");
 const mongoose = require("mongoose");
+const validateMonggoDbId = require("../utils/validateMongodbId");
+const cloudinaryUploadImg = require("../utils/cloudinary");
 
 // Create Product
 const createProduct = asyncHandler(async (req, res) => {
@@ -21,6 +23,7 @@ const createProduct = asyncHandler(async (req, res) => {
 // update product
 const updateProduct = asyncHandler(async (req, res) => {
   const { id } = req.params;
+  validateMonggoDbId(id);
   try {
     if (req.body.title) {
       req.body.slug = slugify(req.body.title);
@@ -41,6 +44,7 @@ const updateProduct = asyncHandler(async (req, res) => {
 // delete product
 const deleteProduct = asyncHandler(async (req, res) => {
   const { id } = req.params;
+  validateMonggoDbId(id);
   try {
     const deleteProduct = await Product.findOneAndDelete({ _id: id });
     res.json(deleteProduct);
@@ -52,6 +56,7 @@ const deleteProduct = asyncHandler(async (req, res) => {
 // Get a Product
 const getaProduct = asyncHandler(async (req, res) => {
   const { id } = req.params;
+  validateMonggoDbId(id);
   try {
     const findProduct = await Product.findById(id);
     res.json({
@@ -114,6 +119,7 @@ const getallProduct = asyncHandler(async (req, res) => {
 const addToWishList = asyncHandler(async (req, res) => {
   const { _id } = req.user;
   const { prodId } = req.body;
+
   if (!mongoose.isValidObjectId(prodId)) {
     prodId = mongoose.Types.ObjectId(prodId);
   }
@@ -200,6 +206,33 @@ const rating = asyncHandler(async (req, res) => {
   }
 });
 
+const uploadImages = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+  validateMonggoDbId(id);
+  try {
+    const uploader = (path) => cloudinaryUploadImg(path, "images");
+    const urls = [];
+    const files = req.files;
+    for (const file of files) {
+      const { path } = file;
+      const newpath = await uploader(path);
+      urls.push(newpath);
+    }
+    const findProduct = User.findByIdAndUpdate(
+      id,
+      {
+        images: urls.map((file) => {
+          return file;
+        }),
+      },
+      { new: true }
+    );
+    res.json(findProduct);
+  } catch (error) {
+    throw new Error(error);
+  }
+});
+
 module.exports = {
   createProduct,
   getaProduct,
@@ -208,4 +241,5 @@ module.exports = {
   deleteProduct,
   addToWishList,
   rating,
+  uploadImages,
 };
