@@ -1,4 +1,4 @@
-const cloudinary = require("cloudinary").v2;
+const cloudinary = require("cloudinary");
 
 // Configuration
 cloudinary.config({
@@ -7,9 +7,9 @@ cloudinary.config({
   api_secret: process.env.CLOUD_SECRET,
 });
 
-const cloudinaryUploadImg = async (fileToUpLoads) => {
+const cloudinaryUploadImg = async (fileToUploads) => {
   return new Promise((resolve) => {
-    cloudinary.uploader.upload(fileToUpLoads, (result) => {
+    cloudinary.uploader.upload(fileToUploads, (result) => {
       resolve(
         {
           url: result.secure_url,

@@ -5,6 +5,7 @@ const User = require("../models/userModel");
 const mongoose = require("mongoose");
 const validateMonggoDbId = require("../utils/validateMongodbId");
 const cloudinaryUploadImg = require("../utils/cloudinary");
+const fs = require("fs");
 
 // Create Product
 const createProduct = asyncHandler(async (req, res) => {
@@ -217,18 +218,20 @@ const uploadImages = asyncHandler(async (req, res) => {
       const { path } = file;
       const newpath = await uploader(path);
       urls.push(newpath);
+      fs.unlinkSync(path);
     }
-    const findProduct = User.findByIdAndUpdate(
+    const findProduct = await Product.findByIdAndUpdate(
       id,
       {
         images: urls.map((file) => {
-          return file;
+          return file.url;
         }),
       },
       { new: true }
     );
-    res.json(findProduct);
+    res.json({ findProduct });
   } catch (error) {
+    console.log(error);
     throw new Error(error);
   }
 });
