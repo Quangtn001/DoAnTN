@@ -130,9 +130,7 @@ const saveAddress = asyncHandler(async (req, res, next) => {
 const getallUser = asyncHandler(async (req, res) => {
   try {
     const getUsers = await User.find();
-    res.json({
-      allUser: getUsers,
-    });
+    res.json(getUsers);
   } catch (error) {
     throw new Error(error);
   }
