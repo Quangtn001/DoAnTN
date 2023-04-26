@@ -12,6 +12,9 @@ import CategoryList from "./pages/CategoryList";
 import ProductList from "./pages/ProductList";
 import AddCategory from "./pages/AddCategory";
 import AddProducts from "./pages/AddProducts";
+import AddCoupon from "./pages/AddCoupon";
+import CouponList from "./pages/CouponList";
+import ViewEnq from "./pages/ViewEnq";
 function App() {
   return (
     <BrowserRouter>
@@ -22,12 +25,17 @@ function App() {
         <Route path="/admin" element={<MainLayout />}>
           <Route index element={<Dashboard />} />
           <Route path="enquiries" element={<Enquiries />} />
+          <Route path="enquiries/:id" element={<ViewEnq />} />
           <Route path="orders" element={<Order />} />
           <Route path="customers" element={<Customer />} />
           <Route path="product-list" element={<ProductList />} />
           <Route path="product" element={<AddProducts />} />
           <Route path="category-list" element={<CategoryList />} />
           <Route path="category" element={<AddCategory />} />
+          <Route path="category/:id" element={<AddCategory />} />
+          <Route path="coupon" element={<AddCoupon />} />
+          <Route path="coupon/:id" element={<AddCoupon />} />
+          <Route path="coupon-list" element={<CouponList />} />
         </Route>
       </Routes>
     </BrowserRouter>

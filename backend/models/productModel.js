@@ -23,8 +23,7 @@ var productSchema = new mongoose.Schema(
       required: true,
     },
     category: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Category",
+      type: String,
     },
     quantity: {
       type: Number,
@@ -35,8 +34,13 @@ var productSchema = new mongoose.Schema(
       default: 0,
       // select: false,
     },
-    images: [],
-    tags: [],
+    images: [
+      {
+        public_id: String,
+        url: String,
+      },
+    ],
+    tags: String,
     ratings: [
       {
         star: Number,

@@ -1,35 +1,62 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Table } from "antd";
+import { useDispatch, useSelector } from "react-redux";
+import { getProducts } from "../features/products/productSlice";
+import { Link } from "react-router-dom";
 // import { BiEdit } from "react-icons/bi";
 // import { BsFillTrash3Fill } from "react-icons/bs";
+import { BiEdit, BiTrash } from "react-icons/bi";
 const columns = [
   {
     title: "SNo",
     dataIndex: "key",
   },
   {
-    title: "Name",
-    dataIndex: "name",
+    title: "Title",
+    dataIndex: "title",
+    sorter: (a, b) => a.title.localeCompare(b.title),
   },
   {
-    title: "Product",
-    dataIndex: "product",
+    title: "Category",
+    dataIndex: "category",
+    sorter: (a, b) => a.category.localeCompare(b.category),
   },
   {
-    title: "Status",
-    dataIndex: "status",
+    title: "Price",
+    dataIndex: "price",
+    sorter: (a, b) => a.price - b.price,
+  },
+  {
+    title: "Action",
+    dataIndex: "action",
   },
 ];
-const data = [];
-for (let i = 0; i < 46; i++) {
-  data.push({
-    key: i,
-    name: `Edward King ${i}`,
-    product: 32,
-    status: `London, Park Lane no. ${i}`,
-  });
-}
+
 const ProductList = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getProducts());
+  }, [dispatch]);
+  const productsData = useSelector((state) => state.product.products);
+  const data = [];
+  for (let i = 0; i < productsData.length; i++) {
+    data.push({
+      key: i + 1,
+      title: productsData[i].title,
+      category: productsData[i].category,
+      price: `${productsData[i].price}`,
+      action: (
+        <>
+          <Link className=" fs-4">
+            <BiEdit />
+          </Link>
+          <Link className="ms-3 fs-4 text-danger">
+            <BiTrash />
+          </Link>
+        </>
+      ),
+    });
+  }
   return (
     <div>
       <h3 className="mb-4">Product List</h3>

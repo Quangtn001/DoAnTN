@@ -11,7 +11,7 @@ const columns = [
     title: "Name",
     dataIndex: "name",
     defautlSortOrder: "descend",
-    sorter: (a, b) => a.name.length - b.name.length,
+    sorter: (a, b) => a.name.localeCompare(b.name),
   },
   {
     title: "Email",

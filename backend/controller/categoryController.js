@@ -44,7 +44,7 @@ const getaCategory = asyncHandler(async (req, res) => {
   validateMonggoDbId(id);
   try {
     const getCategory = await Category.findById(id);
-    res.json({ getCategory });
+    res.json(getCategory);
   } catch (error) {
     throw new Error(error);
   }
@@ -52,7 +52,7 @@ const getaCategory = asyncHandler(async (req, res) => {
 const getallCategory = asyncHandler(async (req, res) => {
   try {
     const allCategory = await Category.find();
-    res.json({ allCategory });
+    res.json(allCategory);
   } catch (error) {
     throw new Error(error);
   }

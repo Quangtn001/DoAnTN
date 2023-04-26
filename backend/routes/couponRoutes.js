@@ -6,10 +6,12 @@ const {
   getAllCoupons,
   updateCoupon,
   deleteCoupon,
+  getACoupon,
 } = require("../controller/couponController");
 
 router.post("/", authMiddleware, isAdmin, creatCoupon);
 router.get("/", authMiddleware, isAdmin, getAllCoupons);
+router.get("/:id", authMiddleware, isAdmin, getACoupon);
 router.put("/:id", authMiddleware, isAdmin, updateCoupon);
 router.delete("/:id", authMiddleware, isAdmin, deleteCoupon);
 

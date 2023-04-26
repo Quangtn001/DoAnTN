@@ -8,6 +8,7 @@ const productRoutes = require("./routes/productRoutes");
 const categoryRoutes = require("./routes/prodcategoryRoutes");
 const couponRoutes = require("./routes/couponRoutes");
 const enqRoutes = require("./routes/enqRoutes");
+const uploadRoutes = require("./routes/uploadRoutes");
 
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
@@ -29,6 +30,7 @@ app.use("/api/product", productRoutes);
 app.use("/api/category", categoryRoutes);
 app.use("/api/coupon", couponRoutes);
 app.use("/api/enquiry", enqRoutes);
+app.use("/api/upload", uploadRoutes);
 
 // middlewares
 app.use(notFound);

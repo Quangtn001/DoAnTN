@@ -3,6 +3,8 @@ import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
 import { Layout, Menu, Button, theme } from "antd";
 import { AiOutlineDashboard } from "react-icons/ai";
 import { MdOutlineAccountCircle, MdContactless } from "react-icons/md";
+import { RiCoupon2Line } from "react-icons/ri";
+import { BiAddToQueue } from "react-icons/bi";
 import {
   BsFillGridFill,
   BsClipboardPlus,
@@ -12,6 +14,8 @@ import {
 import { BiCategoryAlt } from "react-icons/bi";
 import { Link, useNavigate } from "react-router-dom";
 import { Outlet } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const { Header, Sider, Content } = Layout;
 
@@ -66,12 +70,29 @@ const MainLayout = () => {
                 {
                   key: "category",
                   icon: <BiCategoryAlt className="fs-4" />,
-                  label: "Category",
+                  label: "Add Category",
                 },
                 {
                   key: "category-list",
                   icon: <BsCardList className="fs-4" />,
                   label: "Category List",
+                },
+              ],
+            },
+            {
+              key: "Coupon",
+              icon: <RiCoupon2Line className="fs-4" />,
+              label: "Coupon",
+              children: [
+                {
+                  key: "coupon",
+                  icon: <BiAddToQueue className="fs-4" />,
+                  label: "Add Coupon",
+                },
+                {
+                  key: "coupon-list",
+                  icon: <BsCardList className="fs-4" />,
+                  label: "Coupon List",
                 },
               ],
             },
@@ -90,7 +111,7 @@ const MainLayout = () => {
       </Sider>
       <Layout>
         <Header
-          style={{ padding: 0, background: colorBgContainer }}
+          style={{ padding: 0, background: "#001529" }}
           className="d-flex justify-content-between ps-3 pe-5"
         >
           <Button
@@ -101,6 +122,7 @@ const MainLayout = () => {
               fontSize: "16px",
               width: 64,
               height: 64,
+              color: "#fff",
             }}
           />
           <div className="d-flex gap-3 align-items-center">
@@ -122,10 +144,10 @@ const MainLayout = () => {
                 className="d-flex align-items-center gap-3"
               >
                 <div>
-                  <h5 className="text-dark mb-0">Quang</h5>
-                  <p className="mb-0">quangtn001@gmail.com</p>
+                  <h5 className="text-white mb-0">Quang</h5>
+                  <p className="mb-0 text-white ">quangtn001@gmail.com</p>
                 </div>
-                <div className="dropdown-toggle"></div>
+                <div className="dropdown-toggle text-white "></div>
               </div>
               <div className="dropdown-menu">
                 <li>
@@ -156,6 +178,17 @@ const MainLayout = () => {
             background: colorBgContainer,
           }}
         >
+          <ToastContainer
+            position="top-right"
+            autoClose={500}
+            hideProgressBar={false}
+            newestOnTop={true}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            theme="light"
+          />
           <Outlet />
         </Content>
       </Layout>

@@ -1,6 +1,6 @@
 import React from "react";
 const InputForm = (props) => {
-  const { name, type, label, i_id, i_class, val, onCh } = props;
+  const { name, type, label, i_id, i_class, val, onCh, onBlr } = props;
   return (
     <div className="form-group mb-3">
       <input
@@ -11,7 +11,7 @@ const InputForm = (props) => {
         name={name}
         value={val}
         onChange={onCh}
-        onBlur={onCh}
+        onBlur={onBlr}
       />
     </div>
   );

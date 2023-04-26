@@ -39,8 +39,8 @@ const getEnquiry = asyncHandler(async (req, res) => {
   const { id } = req.params;
   validateMonggoDbId(id);
   try {
-    const getaEnquiry = await Enquiry.findById(id);
-    res.json(getaEnquiry);
+    const enq = await Enquiry.findById(id);
+    res.json(enq);
   } catch (error) {
     throw new Error(error);
   }
