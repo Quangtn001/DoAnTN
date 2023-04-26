@@ -480,6 +480,20 @@ const getAllOrder = asyncHandler(async (req, res) => {
   }
 });
 
+const getOrderByUserId = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+  validateMonggoDbId(id);
+  try {
+    const userOrders = await Order.findOne({ orderby: id })
+      .populate("products.product")
+      .populate("orderby")
+      .exec();
+    res.json(userOrders);
+  } catch (error) {
+    throw new Error(error);
+  }
+});
+
 // update order status
 const updateOrderStatus = asyncHandler(async (req, res) => {
   const { status } = req.body;
@@ -522,4 +536,5 @@ module.exports = {
   getOrder,
   updateOrderStatus,
   getAllOrder,
+  getOrderByUserId,
 };

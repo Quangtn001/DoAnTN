@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import { Table } from "antd";
 import { useDispatch, useSelector } from "react-redux";
-import { getOrders } from "../features/auth/authSlice";
+import { getOrderByUser } from "../features/auth/authSlice";
 import { BiEdit, BiTrash } from "react-icons/bi";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 const columns = [
   {
     title: "SNo",
@@ -31,23 +31,24 @@ const columns = [
   },
 ];
 
-const Order = () => {
+const ViewOrder = () => {
   const dispatch = useDispatch();
+  const location = useLocation();
+  const userId = location.pathname.split("/")[3];
   useEffect(() => {
-    dispatch(getOrders());
-  }, [dispatch]);
-  const orderData = useSelector((state) => state.auth.orders);
+    dispatch(getOrderByUser(userId));
+  }, [dispatch, userId]);
+  const orderData = useSelector((state) => state.auth.orderbyuser.products);
+  console.log(orderData);
   const data = [];
   for (let i = 0; i < orderData.length; i++) {
     data.push({
       key: i + 1,
-      name:
-        orderData[i].orderby.firstname + " " + orderData[i].orderby.lastname,
-      product: (
-        <Link to={`/admin/order/${orderData[i].orderby._id}`}>View Order</Link>
-      ),
-      amount: orderData[i].paymentIntent.amount,
-      date: new Date(orderData[i].createdAt).toLocaleString(),
+      name: orderData[i].product.title,
+      name: orderData[i].product.title,
+
+      //   amount: orderData[i].paymentIntent.amount,
+      //   date: new Date(orderData[i].createdAt).toLocaleString(),
       action: (
         <>
           <Link className=" fs-4">
@@ -62,12 +63,12 @@ const Order = () => {
   }
   return (
     <div>
-      <h3 className="mb-4">Orders</h3>
+      <h3 className="mb-4">View Order</h3>
       <div>
-        <Table columns={columns} dataSource={data} />;
+        <Table columns={columns} dataSource={data} />
       </div>
     </div>
   );
 };
 
-export default Order;
+export default ViewOrder;

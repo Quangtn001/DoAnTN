@@ -15,6 +15,7 @@ import AddProducts from "./pages/AddProducts";
 import AddCoupon from "./pages/AddCoupon";
 import CouponList from "./pages/CouponList";
 import ViewEnq from "./pages/ViewEnq";
+import ViewOrder from "./pages/ViewOrder";
 function App() {
   return (
     <BrowserRouter>
@@ -27,6 +28,7 @@ function App() {
           <Route path="enquiries" element={<Enquiries />} />
           <Route path="enquiries/:id" element={<ViewEnq />} />
           <Route path="orders" element={<Order />} />
+          <Route path="order/:id" element={<ViewOrder />} />
           <Route path="customers" element={<Customer />} />
           <Route path="product-list" element={<ProductList />} />
           <Route path="product" element={<AddProducts />} />
